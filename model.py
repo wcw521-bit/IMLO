@@ -3,7 +3,7 @@ import torch.nn as nn
 
 
 class ConvBlock(nn.Module):
-    def __init__(self, in_channels, out_channels):
+    def __init__(self, in_channels, out_channels, dropout==0.0):
         super().__init__()
         self.block = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
@@ -13,6 +13,7 @@ class ConvBlock(nn.Module):
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(2),
+            nn.Dropout(dropout)
         )
 
     def forward(self, x):
@@ -24,11 +25,11 @@ class PetClassifier(nn.Module):
         super().__init__()
 
         self.features = nn.Sequential(
-            ConvBlock(3, 32),
-            ConvBlock(32, 64),
-            ConvBlock(64, 128),
-            ConvBlock(128, 256),
-            ConvBlock(256, 512),
+            ConvBlock(3, 32, 0.0),
+            ConvBlock(32, 64, 0.0),
+            ConvBlock(64, 128, 0.1),
+            ConvBlock(128, 256, 0.1),
+            ConvBlock(256, 512, 0.1),
         )
 
         self.pool = nn.AdaptiveAvgPool2d((1, 1))
