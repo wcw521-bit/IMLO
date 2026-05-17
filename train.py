@@ -9,7 +9,7 @@ import random
 from model import PetClassifier
 
 EPOCHS = 30
-LEARNING_RATE = 1e-4
+LEARNING_RATE = 2e-4
 MODEL_PATH = 'best_model.pth'
 NUM_CLASSES = 37
 IMAGE_SIZE = 224
