@@ -19,13 +19,12 @@ def main():
 
     model = PetClassifier(num_classes=37).to(device)
 
-    # label smoothing helps generalisation
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    criterion = nn.CrossEntropyLoss()
 
     optimizer = optim.Adam(
         model.parameters(),
         lr=LEARNING_RATE,
-        weight_decay=1e-4,
+        weight_decay=1e-5,
     )
 
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
@@ -46,8 +45,7 @@ def main():
         total = 0
 
         for images, labels in train_loader:
-            images = images.to(device)
-            labels = labels.to(device)
+            images, labels = images.to(device), labels.to(device)
 
             optimizer.zero_grad()
 
