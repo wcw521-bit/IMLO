@@ -35,6 +35,8 @@ def main():
         min_lr=1e-6,
     )
 
+    scaler = torch.amp.GradScaler('cuda')
+
     best_val_acc = 0.0
 
     for epoch in range(EPOCHS):
@@ -49,11 +51,14 @@ def main():
 
             optimizer.zero_grad()
 
-            outputs = model(images)
-            loss = criterion(outputs, labels)
+            with torch.amp.autocast('cuda'):
 
-            loss.backward()
-            optimizer.step()
+              outputs = model(images)
+              loss = criterion(outputs, labels)
+
+            scaler.scale(loss).backward() 
+            scaler.step(optimizer)
+            scaler.update()
 
             running_loss += loss.item() * images.size(0)
 
