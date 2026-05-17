@@ -6,8 +6,8 @@ from torchvision.datasets import OxfordIIITPet
 from torch.utils.data import DataLoader, Subset, random_split
 
 NUM_CLASSES = 37
-IMAGE_SIZE = 224
-BATCH_SIZE = 64
+IMAGE_SIZE = 160
+BATCH_SIZE = 32
 SEED = 42
 
 
@@ -30,10 +30,10 @@ def get_transforms(train=True):
     if train:
         return transforms.Compose([
             transforms.Resize((IMAGE_SIZE + 32, IMAGE_SIZE + 32)),
-            transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.7, 1.0)),
+           # transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.7, 1.0)),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(15),
-            transforms.ColorJitter(0.3, 0.3, 0.3, 0.1),
+            #transforms.RandomRotation(15),
+            #transforms.ColorJitter(0.3, 0.3, 0.3, 0.1),
             transforms.ToTensor(),
             transforms.Normalize(
                 mean=[0.485, 0.456, 0.406],
@@ -58,7 +58,6 @@ def get_dataloaders(data_root='./data', val_fraction=0.1):
         target_types='category',
         download=True,
         transform=get_transforms(train=True),
-        target_transform=None,
     )
 
     total_size = len(full_train_dataset)
@@ -81,7 +80,6 @@ def get_dataloaders(data_root='./data', val_fraction=0.1):
         target_types='category',
         download=True,
         transform=get_transforms(train=False),
-        target_transform=None,
     )
 
     val_dataset = Subset(val_base_dataset, val_split.indices)
@@ -92,7 +90,6 @@ def get_dataloaders(data_root='./data', val_fraction=0.1):
         target_types='category',
         download=True,
         transform=get_transforms(train=False),
-        target_transform=None,
     )
 
     device = get_device()
@@ -101,6 +98,7 @@ def get_dataloaders(data_root='./data', val_fraction=0.1):
         batch_size=BATCH_SIZE,
         num_workers=0,
         pin_memory=(device.type == 'cuda'),
+        #persistent_workers=True
     )
 
     train_loader = DataLoader(train_dataset, shuffle=True, **common_kwargs)
