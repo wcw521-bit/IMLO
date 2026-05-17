@@ -61,3 +61,4 @@ class PetClassifier(nn.Module):
             elif isinstance(m, nn.Linear):
                 nn.init.xavier_uniform_(m.weight)
                 nn.init.zeros_(m.bias)
+                nn.init.zeros_(m.bias)
