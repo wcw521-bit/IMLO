@@ -13,7 +13,7 @@ class ConvBlock(nn.Module):
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(2),
-            #nn.Dropout(dropout),
+            nn.Dropout(dropout),
         )
 
     def forward(self, x):
