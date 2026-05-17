@@ -37,7 +37,7 @@ def get_transforms(train=True):
             transforms.Resize((IMAGE_SIZE + 32, IMAGE_SIZE + 32)),
             transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.7, 1.0)),
             transforms.RandomHorizontalFlip(),
-            #transforms.RandomRotation(15),
+            transforms.RandomRotation(10),
             transforms.ColorJitter(
                 brightness = 0.1,
                 contrast = 0.1,
