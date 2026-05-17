@@ -35,7 +35,7 @@ def get_transforms(train=True):
     if train:
         return transforms.Compose([
             transforms.Resize((IMAGE_SIZE + 32, IMAGE_SIZE + 32)),
-           # transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.7, 1.0)),
+            transforms.RandomResizedCrop(IMAGE_SIZE, scale=(0.8, 1.0)),
             transforms.RandomHorizontalFlip(),
             #transforms.RandomRotation(15),
             #transforms.ColorJitter(0.3, 0.3, 0.3, 0.1),
