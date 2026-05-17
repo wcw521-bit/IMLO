@@ -13,7 +13,7 @@ LEARNING_RATE = 1e-4
 MODEL_PATH = 'best_model.pth'
 NUM_CLASSES = 37
 IMAGE_SIZE = 224
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 SEED = 42
 
 def set_seed(seed=SEED):
