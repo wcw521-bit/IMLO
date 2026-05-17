@@ -99,7 +99,7 @@ def get_dataloaders(data_root='./data', val_fraction=0.1):
 
     common_kwargs = dict(
         batch_size=BATCH_SIZE,
-        num_workers=2,
+        num_workers=0,
         pin_memory=(device.type == 'cuda'),
     )
 
